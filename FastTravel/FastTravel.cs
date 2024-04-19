@@ -32,7 +32,7 @@ namespace FastTravel
                 });
             };
 
-            RegisterLandingPad(AstroObject.Name.TimberHearth.ToString(), new Vector3(0f, 0f, 329.7696f), Quaternion.Euler(0f, 180f, 180f));
+            RegisterLandingPad(AstroObject.Name.TimberHearth.ToString(), new Vector3(-16f, -52f, 230f), Quaternion.Euler(56f, 110f, 115f));
 
             ModHelper.Console.WriteLine($"{nameof(FastTravel)} is loaded!", MessageType.Success);
         }
@@ -47,7 +47,7 @@ namespace FastTravel
             landingPads.Remove(astroObjectName);
         }
 
-        public static (Transform, Vector3, Quaternion) GetLandingPad(string astroObjectName)
+        public static (Transform, Vector3, Quaternion, bool) GetLandingPad(string astroObjectName)
         {
             AstroObject ao;
 
@@ -64,7 +64,7 @@ namespace FastTravel
             {
                 if (landingPads.TryGetValue(astroObjectName, out var pad))
                 {
-                    return (ao.transform, pad.Item1, pad.Item2);
+                    return (ao.transform, pad.Item1, pad.Item2, true);
                 }
 
                 Log($"No known landing pad for {astroObjectName}, picking a random point");
@@ -80,7 +80,7 @@ namespace FastTravel
                 var up = pos.normalized;
                 var forward = Vector3.Cross(UnityEngine.Random.onUnitSphere, up);
                 var rot = Quaternion.LookRotation(forward, up);
-                return (ao.transform, pos, rot);
+                return (ao.transform, pos, rot, false);
             }
             else
             {

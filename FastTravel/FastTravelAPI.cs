@@ -9,7 +9,7 @@ namespace FastTravel
 {
     public class FastTravelAPI : IFastTravelAPI
     {
-        public (Transform, Vector3, Quaternion) GetLandingPad(string astroObjectName)
+        public (Transform, Vector3, Quaternion, bool) GetLandingPad(string astroObjectName)
             => FastTravel.GetLandingPad(astroObjectName);
 
         public void RegisterLandingPad(string astroObjectName, Vector3 position, Quaternion rotation)

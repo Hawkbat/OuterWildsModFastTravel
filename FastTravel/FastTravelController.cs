@@ -84,7 +84,7 @@ namespace FastTravel
                     cockpit.OnPressInteract();
                 }
 
-                var (planetT, pos, rot) = FastTravel.GetLandingPad(astroObjectName);
+                var (planetT, pos, rot, known) = FastTravel.GetLandingPad(astroObjectName);
                 var worldPos = planetT.TransformPoint(pos);
                 var worldRot = planetT.rotation * rot;
                 var ship = Locator.GetShipBody();
@@ -94,7 +94,10 @@ namespace FastTravel
                 {
                     ship.SetVelocity(body.GetPointVelocity(worldPos));
                 }
-                StartCoroutine(DoAvoidCollisions());
+                if (!known)
+                {
+                    StartCoroutine(DoAvoidCollisions());
+                }
             }
             else
             {
